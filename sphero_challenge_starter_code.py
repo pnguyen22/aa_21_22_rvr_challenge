@@ -11,20 +11,17 @@ sonar = adafruit_hcsr04.HCSR04(trigger_pin=board.D11, echo_pin=board.D10)
 from sphero_rvr import RVRDrive
 
 
-rvr = RVRDrive()
+rvr = RVRDrive(uart = busio.UART(board.TX, board.RX, baudrate=115200)
+)
 time.sleep(0.5)
 
 rvr.set_all_leds(255,0,0) #set leds to red
 time.sleep(0.1)
-rvr.set_all_leds(0,255,0) #set leds to blue
+rvr.set_all_leds(0,255,0) #set leds to green
 time.sleep(0.1)
-rvr.set_all_leds(0,0,255) #set leds to green
+rvr.set_all_leds(0,0,255) #set leds to blue
 time.sleep(0.1) #turn off
 rvr.set_all_leds(255,255,255) #turn off leds or make them all black
-
-
-
-
 
 rvr.sensor_start()
 
