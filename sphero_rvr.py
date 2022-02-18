@@ -129,7 +129,7 @@ class RVRDrive:
     # RVRDrive.sensor_start()
     # inputs: none
     # Prepares the RVR to start sending location data. This must be called before using RVRDrive.get_x(), RVRDrive.get_y(), or RVRDrive.get_heading().
-     def sensor_start(self):
+    def sensor_start(self):
         self.conf_streaming()
         time.sleep(0.2)
         self.start_streaming()
