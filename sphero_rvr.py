@@ -14,7 +14,7 @@ class RVRDrive:
         self._uart = uart
         self._location = [0.0,0.0,0.0]
 
-    # RVRrRive.drive(speed,heading)
+    # RVRDrive.drive(speed,heading)
     # inputs: speed, heading
     # usage: drive the RVR at a given speed (0 - 255) at a heading (0 - 360). 
     # 0 is North, 90 is East, 180 is South, and 270 is West.
