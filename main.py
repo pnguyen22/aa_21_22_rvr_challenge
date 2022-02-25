@@ -22,7 +22,7 @@ rvr.set_all_leds(255,255,255) #turn off leds or make them all black
 rvr.sensor_start()
 
 print("starting up")
-setpoint = 60.0
+setpoint = 30.0
 k = 2
 MAX_SPEED = 100
 
@@ -59,7 +59,19 @@ while(elapsed_time < 5.0):
 X = rvr.get_x()
 Y = rvr.get_y()
 
-rvr.drive_to_position_si(90,X+60,Y,0.5)
+rvr.drive_to_position_si(90,X+20,Y,0.5)
+
+X = rvr.get_x()
+Y = rvr.get_y()
+
+rvr.drive_to_position_si(45,X+20,Y+20,0.5)
+
+def drive_to(rvr,delta_X,delta_Y,speed):
+    X= rvr.get_x() + delta_X
+    Y = rvr.get_y() + delta_Y
+    delta_angle = math.atan(Y/X)
+    rvr.drive_to_position_si(
+    
 
 # Drive for two seconds at a heading of 30 degrees
 
