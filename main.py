@@ -66,11 +66,6 @@ Y = rvr.get_y()
 
 rvr.drive_to_position_si(45,X+20,Y+20,0.5)
 
-def drive_to(rvr,delta_X,delta_Y,speed):
-    X= rvr.get_x() + delta_X
-    Y = rvr.get_y() + delta_Y
-    delta_angle = math.atan(Y/X)
-    rvr.drive_to_position_si(
     
 
 # Drive for two seconds at a heading of 30 degrees
