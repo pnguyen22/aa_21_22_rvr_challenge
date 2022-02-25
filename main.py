@@ -56,11 +56,13 @@ while(elapsed_time < 5.0):
         pass
     time.sleep(0.2)
 
+X = rvr.get_x()
+Y = rvr.get_y()
+
+rvr.drive_to_position_si(45,X+60,Y,0.5)
 
 # Drive for two seconds at a heading of 30 degrees
-rvr.drive(60,30)
-time.sleep(5.0)
-rvr.stop()
+
 
 # Drive back to the starting point
 # rvr.drive_to_position_si(0,0,0,0.4)
