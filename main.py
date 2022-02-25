@@ -59,7 +59,7 @@ while(elapsed_time < 5.0):
 X = rvr.get_x()
 Y = rvr.get_y()
 
-rvr.drive_to_position_si(45,X+60,Y,0.5)
+rvr.drive_to_position_si(90,X+60,Y,0.5)
 
 # Drive for two seconds at a heading of 30 degrees
 
