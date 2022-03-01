@@ -45,6 +45,7 @@ while(elapsed_time < 5.0):
     
 
 elapsed_time = 0
+rvr.update_sensors()
 X = rvr.get_x()
 target = X+20
 while(elapsed_time < 5.0):
