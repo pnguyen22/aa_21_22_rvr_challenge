@@ -1,48 +1,35 @@
-import board
-import busio
-import time
-import math
-
+# Write your code here :-)
+# sonar example 2022-02-21
+import board, busio, time, math, digitalio, adafruit_hcsr04
+from ssis_rvr   import pin
 from sphero_rvr import RVRDrive
-import adafruit_hcsr04
 
-sonar = adafruit_hcsr04.HCSR04(trigger_pin=board.GP10, echo_pin=board.GP11)
+rvr   = RVRDrive(uart = busio.UART(pin.TX, pin.RX, baudrate=115200))
+sonar = adafruit_hcsr04.HCSR04(trigger_pin=pin.TRIGGER, echo_pin=pin.ECHO)
 
-rvr = RVRDrive(uart = busio.UART(board.GP4, board.GP5, baudrate=115200))
-time.sleep(0.5)
-
-rvr.set_all_leds(255,0,0) #set leds to red
-time.sleep(0.1)
-rvr.set_all_leds(0,255,0) #set leds to green
-time.sleep(0.1)
-rvr.set_all_leds(0,0,255) #set leds to blue
-time.sleep(0.1) #turn off
-rvr.set_all_leds(255,255,255) #turn off leds or make them all black
-
-rvr.sensor_start()
 
 print("starting up")
 setpoint = 30.0
-k = 2
+k = 1
 MAX_SPEED = 100
 
-rvr.update_sensors()
 
-sensor_distance = sonar.distance
-print(sensor_distance)
 error = 100
 start_time = time.monotonic()
 elapsed_time = time.monotonic() - start_time
 
+rvr.reset_yaw
 #on off control
 while(elapsed_time < 5.0):
 
     elapsed_time = time.monotonic() - start_time
     try:
         sensor_distance = sonar.distance
-
-        # Add your proportional control code here.
+        print(sensor_distance)
+ # Add your proportional control code here.
         error = sensor_distance - setpoint
+        if(error<3 and error >-3):
+            break
 
         output = error*k
 
@@ -52,25 +39,18 @@ while(elapsed_time < 5.0):
             # control to both the left and right motors.
 
     except RuntimeError:
-        print("Retrying!")
+        print("Retrying")
         pass
     time.sleep(0.2)
-
-X = rvr.get_x()
-Y = rvr.get_y()
-
-rvr.drive_to_position_si(90,X+20,Y,0.5)
-
-X = rvr.get_x()
-Y = rvr.get_y()
-
-rvr.drive_to_position_si(45,X+20,Y+20,0.5)
-
     
 
-# Drive for two seconds at a heading of 30 degrees
-
-
-# Drive back to the starting point
-# rvr.drive_to_position_si(0,0,0,0.4)
-# time.sleep(3.0)
+elapsed_time = 0
+X = rvr.get_x()
+target = X+20
+while(elapsed_time < 5.0):
+    elapsed_time = time.monotonic() - start_time
+    X = rvr.get_x()
+    rvr.drive(0.5,90)
+    time.sleep(0.2)
+    if(target-X<3.0):
+        break
