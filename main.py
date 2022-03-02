@@ -7,10 +7,8 @@ from sphero_rvr import RVRDrive
 rvr   = RVRDrive(uart = busio.UART(pin.TX, pin.RX, baudrate=115200))
 sonar = adafruit_hcsr04.HCSR04(trigger_pin=pin.TRIGGER, echo_pin=pin.ECHO)
 
-
 print("starting up")
-setpoint = 30.0
-k = 1
+
 MAX_SPEED = 100
 
 
@@ -18,8 +16,12 @@ error = 100
 start_time = time.monotonic()
 elapsed_time = time.monotonic() - start_time
 
-rvr.reset_yaw
+rvr.reset_yaw()
+rvr.sensor_start()
 #on off control
+
+setpoint = 30.0
+k = 1
 while(elapsed_time < 5.0):
 
     elapsed_time = time.monotonic() - start_time
@@ -47,11 +49,17 @@ while(elapsed_time < 5.0):
 elapsed_time = 0
 rvr.update_sensors()
 X = rvr.get_x()
-target = X+20
+
+#setpoint is 20 to the right(in the x direction) from the current position
+setpoint = X+20
+k = 1
 while(elapsed_time < 5.0):
     elapsed_time = time.monotonic() - start_time
+    rvr.update_sensors()
     X = rvr.get_x()
-    rvr.drive(0.5,90)
+    error = setpoint-X
+    output = k * error
+    rvr.drive(output,90)
     time.sleep(0.2)
-    if(target-X<3.0):
+    if(setpoint-X<3.0):
         break
