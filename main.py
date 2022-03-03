@@ -20,7 +20,7 @@ rvr.reset_yaw()
 rvr.sensor_start()
 #on off control
 
-setpoint = 30.0
+setpoint = 40.0
 k = 1
 while(elapsed_time < 5.0):
 
@@ -51,7 +51,7 @@ rvr.update_sensors()
 X = rvr.get_x()
 
 #setpoint is 20 to the right(in the x direction) from the current position
-setpoint = X+20
+setpoint = X+60
 k = 1
 while(elapsed_time < 5.0):
     elapsed_time = time.monotonic() - start_time
