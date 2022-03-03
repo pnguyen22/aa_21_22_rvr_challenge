@@ -20,7 +20,7 @@ rvr.reset_yaw()
 rvr.sensor_start()
 #on off control
 
-setpoint = 40.0
+setpoint = 30.0
 k = 1
 while(elapsed_time < 5.0):
 
