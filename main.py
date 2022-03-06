@@ -66,17 +66,14 @@ while(elapsed_time < 5.0):
 start_time = time.monotonic()
 elapsed_time = 0
 rvr.update_sensors()
-X = rvr.get_x()
 Y = rvr.get_y()
-#setpoint is 60 to the right(in the x direction) from the current position
-setpointX = X+0.60
-setpointY = Y+0.60
+setpointY = 2.95
 k = 100
 while(elapsed_time < 5.0):
     elapsed_time = time.monotonic() - start_time
     rvr.update_sensors()
-    X = rvr.get_x()
-    error = setpointX-X
+    Y = rvr.get_y()
+    error = setpointY-Y
     output = k * error
     rvr.drive(output,45)
     rvr.set_all_leds(255,0,0)
