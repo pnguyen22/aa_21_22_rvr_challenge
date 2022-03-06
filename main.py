@@ -81,4 +81,22 @@ while(elapsed_time < 5.0):
     if(setpoint-X<0.03):
         break
  
+start_time = time.monotonic()
+elapsed_time = 0
+rvr.update_sensors()
+X = rvr.get_x()
+setpoint = 90
+k = 100
+while(elapsed_time < 5.0):
+    elapsed_time = time.monotonic() - start_time
+    rvr.update_sensors()
+    X = rvr.get_x()
+    error = setpoint-X
+    output = k * error
+    rvr.drive(output,-135)
+    time.sleep(0.2)
+    if(setpoint-X<0.03):
+        break
+
+
 rvr.drive_to_position_si(setpointX,Y,-45)
